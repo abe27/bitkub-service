@@ -3,13 +3,16 @@
     "description": "A Laravel package for integrating with the Bitkub Cryptocurrency Exchange API",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.0",
     "authors": [
         {
             "name": "abe27",
             "email": "taweechai.yue@outlook.co.th"
         }
     ],
+    "support": {
+        "issues": "https://github.com/abe27/bitkub-service/issues",
+        "source": "https://github.com/abe27/bitkub-service/"
+    },
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
