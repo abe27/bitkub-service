@@ -14,7 +14,7 @@ class BitkubServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/bitkub.php',
+            __DIR__ . '/config/bitkub.php',
             'bitkub'
         );
 
@@ -31,7 +31,7 @@ class BitkubServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/bitkub.php' => config_path('bitkub.php'),
+            __DIR__ . '/config/bitkub.php' => config_path('bitkub.php'),
         ], 'bitkub-config');
     }
 }
