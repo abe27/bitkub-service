@@ -1,4 +1,4 @@
-# Laravel Bitkub Package
+# Laravel Bitkub Service Package
 
 A Laravel package for integrating with the Bitkub Cryptocurrency Exchange API.
 
@@ -7,7 +7,7 @@ A Laravel package for integrating with the Bitkub Cryptocurrency Exchange API.
 You can install the package via composer:
 
 ```bash
-composer require abe27/bitkub
+composer require abe27/bitkub-service
 ```
 
 ## Publish Configuration

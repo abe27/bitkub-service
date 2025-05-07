@@ -1,5 +1,5 @@
 {
-    "name": "abe27/bitkub",
+    "name": "abe27/bitkub-service",
     "description": "A Laravel package for integrating with the Bitkub Cryptocurrency Exchange API",
     "type": "library",
     "license": "MIT",
