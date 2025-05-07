@@ -1,10 +1,10 @@
 <?php
 
-namespace Abe27\BitkubService\Facades;
+namespace Abe27\Bitkub\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class BitkubService extends Facade
+class Bitkub extends Facade
 {
     /**
      * Get the registered name of the component.

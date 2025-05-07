@@ -1,6 +1,6 @@
 <?php
 
-namespace Abe27\BitkubService;
+namespace Abe27\Bitkub;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -19,7 +19,7 @@ class BitkubServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton('bitkub', function ($app) {
-            return new BitkubService($app['config']['bitkub']);
+            return new Bitkub($app['config']['bitkub']);
         });
     }
 
