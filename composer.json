@@ -40,5 +40,11 @@
                 "Bitkub": "Abe27\\Bitkub\\Facades\\Bitkub"
             }
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/abe27/bitkub-service.git"
+        }
+    ]
 }
