@@ -85,7 +85,7 @@ class Bitkub
         $endpoint = '/api/market/ticker';
 
         if ($symbol) {
-            $endpoint .= '?sym=' . $symbol;
+            $endpoint .= '?sym=THB_' . $symbol;
         }
 
         return $this->sendRequest('GET', $endpoint);
@@ -115,7 +115,7 @@ class Bitkub
     public function createBuyOrder($symbol, $amount, $rate, $type = 'limit')
     {
         $params = [
-            'sym' => $symbol,
+            'sym' => "THB_" . $symbol,
             'amt' => $amount,
             'rat' => $rate,
             'typ' => $type,
@@ -137,7 +137,7 @@ class Bitkub
     public function createSellOrder($symbol, $amount, $rate, $type = 'limit')
     {
         $params = [
-            'sym' => $symbol,
+            'sym' => "THB_" . $symbol,
             'amt' => $amount,
             'rat' => $rate,
             'typ' => $type,
@@ -158,7 +158,7 @@ class Bitkub
     public function cancelOrder($symbol, $id, $side)
     {
         $params = [
-            'sym' => $symbol,
+            'sym' => "THB_" . $symbol,
             'id' => $id,
             'sd' => $side,
         ];

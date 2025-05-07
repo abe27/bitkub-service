@@ -48,7 +48,7 @@ $symbols = Bitkub::symbols();
 $ticker = Bitkub::ticker();
 
 // Get ticker information for a specific symbol
-$btcTicker = Bitkub::ticker('THB_BTC');
+$btcTicker = Bitkub::ticker('BTC');
 ```
 
 ### Authentication Required API
@@ -60,13 +60,13 @@ For endpoints that require authentication, you need to set up your API key and s
 $balances = Bitkub::balances();
 
 // Create a buy order
-$buyOrder = Bitkub::createBuyOrder('THB_BTC', 0.001, 500000, 'limit');
+$buyOrder = Bitkub::createBuyOrder('BTC', 0.001, 500000, 'limit');
 
 // Create a sell order
-$sellOrder = Bitkub::createSellOrder('THB_BTC', 0.001, 550000, 'limit');
+$sellOrder = Bitkub::createSellOrder('BTC', 0.001, 550000, 'limit');
 
 // Cancel an order
-$cancelOrder = Bitkub::cancelOrder('THB_BTC', 12345, 'buy');
+$cancelOrder = Bitkub::cancelOrder('BTC', 12345, 'buy');
 ```
 
 ## Available Methods
