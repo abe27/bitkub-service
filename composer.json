@@ -1,0 +1,44 @@
+{
+    "name": "abe27/bitkub",
+    "description": "A Laravel package for integrating with the Bitkub Cryptocurrency Exchange API",
+    "type": "library",
+    "license": "MIT",
+    "version": "0.0.1-b",
+    "authors": [
+        {
+            "name": "abe27",
+            "email": "taweechai.yue@outlook.co.th"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^12.12",
+        "guzzlehttp/guzzle": "^7.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.1",
+        "orchestra/testbench": "^10.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Abe27\\BitkubService\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Abe27\\BitkubService\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Abe27\\BitkubService\\BitkubServiceProvider"
+            ],
+            "aliases": {
+                "BitkubService": "Abe27\\BitkubService\\Facades\\Bitkub"
+            }
+        }
+    }
+}
