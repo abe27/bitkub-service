@@ -10,6 +10,10 @@
             "email": "taweechai.yue@outlook.co.th"
         }
     ],
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
