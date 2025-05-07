@@ -23,21 +23,21 @@
     },
     "autoload": {
         "psr-4": {
-            "Abe27\\BitkubService\\": "src/"
+            "Abe27\\Bitkub\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Abe27\\BitkubService\\Tests\\": "tests/"
+            "Abe27\\Bitkub\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Abe27\\BitkubService\\BitkubServiceProvider"
+                "Abe27\\Bitkub\\BitkubServiceProvider"
             ],
             "aliases": {
-                "BitkubService": "Abe27\\BitkubService\\Facades\\Bitkub"
+                "Bitkub": "Abe27\\Bitkub\\Facades\\Bitkub"
             }
         }
     }
