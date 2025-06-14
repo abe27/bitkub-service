@@ -3,6 +3,7 @@
 namespace Abe27\Bitkub;
 
 use Abe27\Bitkub\Exceptions\BitkubException;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 
 class Bitkub
@@ -99,7 +100,18 @@ class Bitkub
      */
     public function balances()
     {
-        return $this->sendRequest('POST', '/api/v3/market/balances', [], true);
+        // 2️⃣ สร้าง Timestamp (milliseconds)
+        $timestamp = (string) round(microtime(true) * 1000);
+        // 3️⃣ สร้าง Payload ให้เหมือน Python (ต้องใช้ String ต่อกัน)
+        $payload = [];
+        array_push($payload, $timestamp);
+        array_push($payload, 'POST');
+        array_push($payload, '/api/v3/market/wallet');
+        array_push($payload, "");
+        $payloadString = implode('', $payload);
+        // 4️⃣ สร้าง Signature ด้วย HMAC SHA256
+        $signature = $this->generateSignature($payloadString);
+        return $this->sendRequest("POST", "/api/v3/market/wallet", $timestamp, $signature, [], true);
     }
 
     /**
@@ -169,13 +181,13 @@ class Bitkub
     /**
      * Generate signature for API request.
      *
-     * @param array $params
+     * @param string $params
      * @return string
      */
     protected function generateSignature($params)
     {
-        $queryString = http_build_query($params);
-        return hash_hmac('sha256', $queryString, $this->apiSecret);
+        // $queryString = http_build_query($params);
+        return hash_hmac('sha256', $params, $this->apiSecret);
     }
 
     /**
@@ -188,21 +200,40 @@ class Bitkub
      * @return array
      * @throws \Abe27\Bitkub\Exceptions\BitkubException
      */
-    protected function sendRequest($method, $uri, $params = [], $auth = false)
+    protected function sendRequest($method, $uri, $timestamp = null, $signature = null, $params = [], $auth = false)
     {
         $url = $this->endpoint . $uri;
         $headers = [];
 
         if ($auth) {
-            $ts = time();
-            $params['ts'] = $ts;
-            $params['api_key'] = $this->apiKey;
-            $params['sig'] = $this->generateSignature($params);
-            $headers['X-BTK-APIKEY'] = $this->apiKey;
-            $headers['X-BTK-SIGN'] = $params['sig'];
-            $headers['X-BTK-TIMESTAMP'] = $ts;
-            $headers['Content-Type'] = 'application/json';
-            $headers['Accept'] = 'application/json';
+            // 5️⃣ กำหนด Headers
+            $headers = [
+                'Accept'          => 'application/json',
+                'Content-Type'    => 'application/json',
+                'X-BTK-TIMESTAMP' => $timestamp,
+                'X-BTK-SIGN'      => $signature,
+                'X-BTK-APIKEY'    => $this->apiKey
+            ];
+            // 6️⃣ ส่ง Request
+            try {
+                $client = new Client();
+                $response = $client->request('POST', $url, [
+                    'headers' => $headers,
+                    'form_params' => $params
+                ]);
+                $result = json_decode($response->getBody(), true);
+                if (isset($result['error']) && $result['error'] !== 0) {
+                    throw new BitkubException($result['message'] ?? 'Unknown error', $result['error']);
+                }
+
+                return $result;
+            } catch (\Exception $e) {
+                if ($e instanceof BitkubException) {
+                    throw $e;
+                }
+
+                throw new BitkubException('Failed to communicate with Bitkub API: ' . $e->getMessage());
+            }
         }
 
         try {
