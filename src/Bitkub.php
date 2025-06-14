@@ -99,7 +99,7 @@ class Bitkub
      */
     public function balances()
     {
-        return $this->sendRequest('POST', '/api/market/balances', [], true);
+        // return $this->sendRequest('POST', '/api/market/balances', [], true);
     }
 
     /**
@@ -194,10 +194,15 @@ class Bitkub
         $headers = [];
 
         if ($auth) {
-            $params['ts'] = time();
+            $ts = time();
+            $params['ts'] = $ts;
             $params['api_key'] = $this->apiKey;
             $params['sig'] = $this->generateSignature($params);
             $headers['X-BTK-APIKEY'] = $this->apiKey;
+            $headers['X-BTK-SIGN'] = $params['sig'];
+            $headers['X-BTK-TIMESTAMP'] = $ts;
+            $headers['Content-Type'] = 'application/json';
+            $headers['Accept'] = 'application/json';
         }
 
         try {
