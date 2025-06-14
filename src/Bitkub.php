@@ -99,7 +99,7 @@ class Bitkub
      */
     public function balances()
     {
-        // return $this->sendRequest('POST', '/api/market/balances', [], true);
+        return $this->sendRequest('POST', '/api/v3/market/balances', [], true);
     }
 
     /**
