@@ -98,16 +98,13 @@ class Bitkub
      */
     public function balances()
     {
-        // 2️⃣ สร้าง Timestamp (milliseconds)
         $timestamp = (string) round(microtime(true) * 1000);
-        // 3️⃣ สร้าง Payload ให้เหมือน Python (ต้องใช้ String ต่อกัน)
         $payload = [];
         array_push($payload, $timestamp);
         array_push($payload, 'POST');
         array_push($payload, '/api/v3/market/wallet');
         array_push($payload, "");
         $payloadString = implode('', $payload);
-        // 4️⃣ สร้าง Signature ด้วย HMAC SHA256
         $signature = $this->generateSignature($payloadString);
         return $this->sendRequest("POST", "/api/v3/market/wallet", $timestamp, $signature, [], true);
     }
