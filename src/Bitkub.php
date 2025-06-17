@@ -4,7 +4,7 @@ namespace Abe27\Bitkub;
 
 use Abe27\Bitkub\Exceptions\BitkubException;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class Bitkub
 {
@@ -84,11 +84,9 @@ class Bitkub
     public function ticker($symbol = null)
     {
         $endpoint = '/api/market/ticker';
-
         if ($symbol) {
-            $endpoint .= '?sym=THB_' . $symbol;
+            $endpoint .= '?sym=thb_' . Str::lower($symbol);
         }
-
         return $this->sendRequest('GET', $endpoint);
     }
 
@@ -217,7 +215,7 @@ class Bitkub
             // 6️⃣ ส่ง Request
             try {
                 $client = new Client();
-                $response = $client->request('POST', $url, [
+                $response = $client->request($method, $url, [
                     'headers' => $headers,
                     'form_params' => $params
                 ]);
@@ -237,16 +235,11 @@ class Bitkub
         }
 
         try {
-            $response = Http::withHeaders($headers);
-
-            if ($method === 'GET') {
-                $response = $response->get($url, $params);
-            } else {
-                $response = $response->post($url, $params);
-            }
-
-            $result = $response->json();
-
+            $client = new Client();
+            $response = $client->request($method, $url, [
+                'headers' => $headers
+            ]);
+            $result = json_decode($response->getBody(), true);
             if (isset($result['error']) && $result['error'] !== 0) {
                 throw new BitkubException($result['message'] ?? 'Unknown error', $result['error']);
             }
